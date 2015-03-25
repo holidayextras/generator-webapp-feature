@@ -1,0 +1,26 @@
+{
+  "name": "generator-webapp-feature",
+  "version": "1.0.0",
+  "description": "A generator for WebApp features for use within HX WebApp projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/**/*Test.js"
+  },
+  "keywords": [
+    "generator",
+    "webapp",
+    "feature"
+  ],
+  "author": "Luke Hansell <luke.hansell@holidayextras.com>",
+  "license": "ISC",
+  "dependencies": {
+    "camel-case": "^1.1.1",
+    "capitalize": "^0.5.0",
+    "find-parent-dir": "^0.3.0",
+    "yeoman-generator": "^0.18.10"
+  },
+  "devDependencies": {
+    "rmdir": "^1.1.0",
+    "sinon": "^1.14.1"
+  }
+}
