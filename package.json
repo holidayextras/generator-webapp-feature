@@ -4,7 +4,7 @@
   "description": "A generator for WebApp features for use within HX WebApp projects",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha tests/**/*Test.js"
+    "test": "node_modules/.bin/mocha tests/**/*_test.js"
   },
   "keywords": [
     "generator",
@@ -17,6 +17,7 @@
     "camel-case": "^1.1.1",
     "capitalize": "^0.5.0",
     "find-parent-dir": "^0.3.0",
+    "snake-case": "^1.1.1",
     "yeoman-generator": "^0.18.10"
   },
   "devDependencies": {

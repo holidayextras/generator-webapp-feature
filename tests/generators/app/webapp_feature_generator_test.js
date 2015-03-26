@@ -66,28 +66,33 @@ describe('webapp-feature generator', function(){
         it('should create feature directory', function(){
           assert.file(path.join(__dirname, 'tmp', 'code/test'));
         });
+        
         it('should create feature controllers directory', function(){
           assert.file(path.join(__dirname, 'tmp', 'code/test/controllers'));
         });
+        
         it('should create feature style directory', function(){
           assert.file(path.join(__dirname, 'tmp', 'code/test/style'));
         });
+        
         it('should create feature view_controllers directory', function(){
           assert.file(path.join(__dirname, 'tmp', 'code/test/view_controllers'));
         });
+        
         it('should create feature views directory', function(){
           assert.file(path.join(__dirname, 'tmp', 'code/test/views'));
         });
       });
       
       describe('writingController()', function(){
-        var controllerPath = path.join(__dirname, 'tmp', 'code/test/controllers/testController.js');
+        var controllerPath = path.join(__dirname, 'tmp', 'code/test/controllers/test_controller.js');
         
         it('should create controller file', function(){
           assert.file(controllerPath);
         });
+        
         it('should have the expected content', function(){
-          var expectedContent = fs.readFileSync(path.resolve(__dirname,'../../fixtures/files/exampleController.js'));
+          var expectedContent = fs.readFileSync(path.resolve(__dirname,'../../fixtures/files/example_controller.js'));
           var actualContent = fs.readFileSync(controllerPath);
           assert.equal(actualContent.toString(), expectedContent.toString());
         });
@@ -213,6 +218,10 @@ describe('webapp-feature generator', function(){
         assert.equal(this.app.camelName, 'fooBar');
       });
       
+      it('assigns the snake cased name to generator instance', function(){
+        assert.equal(this.app.snakeName, 'foo_bar');
+      });
+      
       it('assigns the capitalized version of the name to generator instance', function(){
         assert.equal(this.app.capitalizedName, 'FooBar');
       });
@@ -221,7 +230,7 @@ describe('webapp-feature generator', function(){
     describe('scaffoldDirectories()', function(){
       beforeEach(function(){
         this.mkdirStub = sinon.stub(this.app, 'mkdir');
-        this.app.camelName = 'fooBar';
+        this.app.snakeName = 'fooBar';
         this.app.scaffoldDirectories();
       });
       
@@ -232,9 +241,11 @@ describe('webapp-feature generator', function(){
       it('calls mkdir for style dir', function(){
         assert.ok(this.mkdirStub.calledWith('fooBar/style'));
       });
+      
       it('calls mkdir for view_controllers dir', function(){
         assert.ok(this.mkdirStub.calledWith('fooBar/view_controllers'));
       });
+      
       it('calls mkdir for views dir', function(){
         assert.ok(this.mkdirStub.calledWith('fooBar/views'));
       });
@@ -244,16 +255,16 @@ describe('webapp-feature generator', function(){
       beforeEach(function(){
         this.copyTplStub = sinon.stub(this.app.fs, 'copyTpl');
         this.app.name = 'foo-bar';
-        this.app.camelName = 'fooBar';
+        this.app.snakeName = 'foo_bar';
         this.app.writingController();
       });
 
       it('calls copyTpl with controller template', function(){
-        assert.ok(this.copyTplStub.args[0][0].match(/featureController\.js$/));
+        assert.ok(this.copyTplStub.args[0][0].match(/feature_controller\.js$/));
       });
       
       it('calls copyTpl with correct destination path', function(){
-        assert.ok(this.copyTplStub.args[0][1].match(/fooBar\/controllers\/fooBarController\.js$/));
+        assert.ok(this.copyTplStub.args[0][1].match(/foo_bar\/controllers\/foo_bar_controller\.js$/));
       });
       
       it('calls copyTpl with correct template variables', function(){
@@ -265,7 +276,7 @@ describe('webapp-feature generator', function(){
       beforeEach(function(){
         this.copyTplStub = sinon.stub(this.app.fs, 'copyTpl');
         this.app.name = 'foo-bar';
-        this.app.camelName = 'fooBar';
+        this.app.snakeName = 'foo_bar';
         this.app.writingMainLess();
       });
       
@@ -274,7 +285,7 @@ describe('webapp-feature generator', function(){
       });
       
       it('calls copyTpl with correct destination path', function(){
-        assert.ok(this.copyTplStub.args[0][1].match(/fooBar\/style\/main\.less$/));
+        assert.ok(this.copyTplStub.args[0][1].match(/foo_bar\/style\/main\.less$/));
       });
       
       it('calls copyTpl with correct template variables', function(){
@@ -297,7 +308,7 @@ describe('webapp-feature generator', function(){
         fs.mkdirSync(path.join(__dirname, 'tmp'));
         fs.mkdirSync(path.join(__dirname, 'tmp', 'code'));
 
-        this.templateFilePath = path.resolve(__dirname,'../../fixtures/files/templateIndex.js');
+        this.templateFilePath = path.resolve(__dirname,'../../fixtures/files/template_index.js');
         this.destinationFilePath =  path.resolve(__dirname, 'tmp/code/index.js')
 
         this.templateContent = fs.readFileSync(this.templateFilePath);
@@ -305,6 +316,7 @@ describe('webapp-feature generator', function(){
         
         this.app.destinationRoot(path.join(__dirname, 'tmp', 'code'));
         
+        this.app.snakeName = 'test_feature';
         this.app.camelName = 'testFeature';
         this.app.capitalizedName = 'TestFeature';
         
@@ -316,7 +328,7 @@ describe('webapp-feature generator', function(){
       });
       
       it('updates the content of the index.js file', function(){
-        this.expectedContent = fs.readFileSync(path.resolve(__dirname,'../../fixtures/files/expectedIndex.js'));
+        this.expectedContent = fs.readFileSync(path.resolve(__dirname,'../../fixtures/files/expected_index.js'));
         this.actualContent = fs.readFileSync(this.destinationFilePath);
         assert.equal(this.actualContent.toString(), this.expectedContent.toString());
       });

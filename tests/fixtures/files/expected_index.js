@@ -9,8 +9,8 @@
 // browser's JS console.
 // ----
 
-var ProductsController = require('./products/controllers/productsController');
-var TestFeatureController = require('./testFeature/controllers/testFeatureController');
+var ProductsController = require('./products/controllers/products_controller');
+var TestFeatureController = require('./test_feature/controllers/test_feature_controller');
 //====== yeoman requireHook =====//
 var HapiSdk = require('hapi-sdk');
 var Config = require('clientconfig');

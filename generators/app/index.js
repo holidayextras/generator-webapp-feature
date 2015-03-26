@@ -4,6 +4,7 @@ var findParentDir = require('find-parent-dir');
 var fs = require('fs');
 var generators = require('yeoman-generator');
 var path = require('path');
+var snakeCase = require('snake-case');
 
 module.exports = generators.Base.extend({
   
@@ -39,21 +40,22 @@ module.exports = generators.Base.extend({
   },
   
   configuringVariables: function(){
+    this.snakeName = snakeCase(this.name);
     this.camelName = camelCase(this.name);
     this.capitalizedName = capitalize(this.camelName);
   },
   
   scaffoldDirectories: function(){
-    this.mkdir(this.camelName + '/controllers');
-    this.mkdir(this.camelName + '/style');
-    this.mkdir(this.camelName + '/view_controllers');
-    this.mkdir(this.camelName + '/views');
+    this.mkdir(this.snakeName + '/controllers');
+    this.mkdir(this.snakeName + '/style');
+    this.mkdir(this.snakeName + '/view_controllers');
+    this.mkdir(this.snakeName + '/views');
   },
   
   writingController: function(){
     this.fs.copyTpl(
-      this.templatePath('featureController.js'),
-      this.destinationPath(this.camelName + '/controllers/' + this.camelName + 'Controller.js'),
+      this.templatePath('feature_controller.js'),
+      this.destinationPath(this.snakeName + '/controllers/' + this.snakeName + '_controller.js'),
       {name: this.name}
     );
   },
@@ -61,7 +63,7 @@ module.exports = generators.Base.extend({
   writingMainLess: function(){
     this.fs.copyTpl(
       this.templatePath('main.less'),
-      this.destinationPath(this.camelName + '/style/main.less'),
+      this.destinationPath(this.snakeName + '/style/main.less'),
       {name: this.name}
     );
   },
@@ -72,7 +74,7 @@ module.exports = generators.Base.extend({
     var indexContent = this.readFileAsString(filePath);
     
     var requireHook = '//====== yeoman requireHook =====//';
-    var requireString = "var " + this.capitalizedName + "Controller = require('./" + this.camelName + "/controllers/" + this.camelName + "Controller');";
+    var requireString = "var " + this.capitalizedName + "Controller = require('./" + this.snakeName + "/controllers/" + this.snakeName + "_controller');";
     
     var instantiateHook = '//===== yeoman controllerHook =====//';
     var instantiateString = this.camelName + "Controller: new " + this.capitalizedName + "Controller({instances: this.instances}),";
