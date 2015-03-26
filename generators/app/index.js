@@ -58,6 +58,14 @@ module.exports = generators.Base.extend({
     );
   },
   
+  writingMainLess: function(){
+    this.fs.copyTpl(
+      this.templatePath('main.less'),
+      this.destinationPath(this.camelName + '/style/main.less'),
+      {name: this.name}
+    );
+  },
+  
   writingIndexUpdate: function(){
     // update index with new feature
     var filePath = 'index.js';

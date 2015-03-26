@@ -93,6 +93,12 @@ describe('webapp-feature generator', function(){
         });
       });
       
+      describe('writingMainLess()', function(){
+        it('should write the main.less file', function(){
+          assert.fileContent(path.join(__dirname, 'tmp/code/test/style/main.less'), '/* Style for the test feature should go in here*/');
+        });
+      });
+      
     });
     
     describe('when inside a direct with no parent directory containing a package.json file', function(){
@@ -243,11 +249,32 @@ describe('webapp-feature generator', function(){
       });
 
       it('calls copyTpl with controller template', function(){
-        assert.ok(this.copyTplStub.args[0][0].match(/featureController\.js$/))
+        assert.ok(this.copyTplStub.args[0][0].match(/featureController\.js$/));
       });
       
       it('calls copyTpl with correct destination path', function(){
         assert.ok(this.copyTplStub.args[0][1].match(/fooBar\/controllers\/fooBarController\.js$/));
+      });
+      
+      it('calls copyTpl with correct template variables', function(){
+        assert.equal(JSON.stringify(this.copyTplStub.args[0][2]), JSON.stringify({name:'foo-bar'}));
+      });
+    });
+    
+    describe('writingMainLess()', function(){
+      beforeEach(function(){
+        this.copyTplStub = sinon.stub(this.app.fs, 'copyTpl');
+        this.app.name = 'foo-bar';
+        this.app.camelName = 'fooBar';
+        this.app.writingMainLess();
+      });
+      
+      it('calls copyTpl with main.less template', function(){
+        assert.ok(this.copyTplStub.args[0][0].match(/main\.less$/));
+      });
+      
+      it('calls copyTpl with correct destination path', function(){
+        assert.ok(this.copyTplStub.args[0][1].match(/fooBar\/style\/main\.less$/));
       });
       
       it('calls copyTpl with correct template variables', function(){

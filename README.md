@@ -17,6 +17,7 @@ path/to/code
 │ ├ controllers
 │ │ └ [featureName]Controller.js
 │ ├ style
+│ │ └ main.less
 │ ├ view_controllers
 │ └ views
 ```
@@ -52,6 +53,8 @@ A controller will typically instantiate the data models and then use either the 
 
 ### Style
 Here you can provide any styles for your feature. These should be written into `.less` files.
+A `main.less` file is already provided to get you started.
+In here you can provide style overrides specific to this feature.
 
 ### View_controllers
 A view controller is responsible for user input within a certain portion of a page.
