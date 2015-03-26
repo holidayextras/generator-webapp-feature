@@ -15,7 +15,7 @@ Inside your code directory the a new directory will be created:
 path/to/code
 ├ [featureName]
 │ ├ controllers
-│ │ └ [featureName]Controller.js
+│ │ └ [featureName]_controller.js
 │ ├ style
 │ │ └ main.less
 │ ├ view_controllers
@@ -44,7 +44,7 @@ If they are not present the generator will not error, but you will have to manua
 *If you use the latest version of the webapp-template as the base of your app then the hooks should already be provided.*
 
 ### Controllers
-Inside the `controllers` directory you will find the `[featureName]Controller.js`.
+Inside the `controllers` directory you will find the `[featureName]_controller.js`.
 This is the entry point for your feature and extends the [ampersand-router](https://github.com/ampersandjs/ampersand-router).
 In here you can define the routes which your feature will serve and the implementation of these routes.
 For instance, by default an index route is defined which outputs an html `div`, with the features name as a class value, into the document.body.
