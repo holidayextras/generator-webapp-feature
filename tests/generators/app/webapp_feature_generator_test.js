@@ -30,10 +30,6 @@ describe('webapp-feature generator', function(){
         app = require('../../../generators/app');
       });
       
-      afterEach(function(){
-        app = null;
-      });
-      
       it('does not throw an error', function(){
         assert.ok(app);
       });

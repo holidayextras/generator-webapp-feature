@@ -18,7 +18,7 @@ var React = require('react');
 module.exports = Router.extend({
 
   routes: {
-    "": "index"
+    "<%= name %>": "index"
   },
 
   initialize: function(options) {
