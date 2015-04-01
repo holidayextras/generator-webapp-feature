@@ -9,8 +9,6 @@ var snakeCase = require('snake-case');
 module.exports = generators.Base.extend({
   
   initializing: function(){
-    var done = this.async();
-    
     var destinationRootDirectory = findParentDir.sync(path.resolve('./'), 'package.json' );
     if(!destinationRootDirectory) this.env.error('Cannot find root of project (directory containing package.json file).');
 
@@ -21,8 +19,6 @@ module.exports = generators.Base.extend({
     if(!fs.existsSync(path.join(codeDirectory, 'index.js'))) this.env.error('No index.js file found in code directory');
     
     this.destinationRoot(codeDirectory);
-    
-    done();
   },
   
   promptingName: function(){
